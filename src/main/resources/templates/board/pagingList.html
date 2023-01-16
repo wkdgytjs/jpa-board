@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>pagingList</title>
+</head>
+<body>
+<h1>pagingList</h1>
+<table border="1">
+  <tr>
+    <th>번호</th>
+    <th>제목</th>
+    <th>내용</th>
+    <th>작성자</th>
+    <th>비밀번호</th>
+    <th>조회수</th>
+    <th>작성시간</th>
+    <th>상세조회</th>
+  </tr>
+  <tr th:each="list: ${lists}">
+    <td th:text="${list.id}"></td>
+    <td th:text="${list.title}"></td>
+    <td th:text="${list.content}"></td>
+    <td th:text="${list.writer}"></td>
+    <td th:text="${list.boardPw}"></td>
+    <td th:text="${list.hit}"></td>
+    <td th:text="*{#temporals.format(list.createTime, 'yyyy년MM월dd일 HH시mm분s초')}"></td>
+          <!--detail/{id}  @PathVariable으로 받는다-->
+    <td><a th:href="@{|/board/detail/${list.id}|}">조회</a></td>
+          <!--detail?id= @RequestParam으로 받는다-->
+    <!--<td><a th:href="@{/board/detail(id=${list.id})}">조회</a></td> -->
+  </tr>
+  <tr>
+    <td colspan="8">
+      <a th:href="@{/board/index}">BOARD_HOME</a>
+      <a th:href="@{/board/write}">게시글작성</a>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="76">
+      <a th:href="${boardList.first} ? '#' : @{/board/pagingList(page=${boardlist.number-1}}">이전</a>
+
+      <th:block th:each="page: ${#number.sequence(startPage, endPage)}">
+        <span th:if="${page == nowPage}">
+          <a th:href="@{/board/pagingList(page=${page-1})}" th:text="${page}"></a>
+        </span>
+      </th:block>
+      <a th:href="${boardList.last} ? '#' : @{/board/pagingList(page=${boardList.number+1})}">다움</a>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

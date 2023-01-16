@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>글작성 페이지</title>
+</head>
+<body>
+<h1>write</h1>
+<!-- 글작성 form -->
+<form action="write" th:action="@{/board/write}" method="post">
+    title: <input type="text" name="title" id="title"> <br>
+    content: <input type="text" name="content" id="content"> <br>
+    writer: <input type="text" name="writer" id="writer"> <br>
+    pw: <input type="text" name="boardPw" id="boardPw"> <br>
+    <input type="submit" value="글작성">
+</form>
+<div>
+    <a th:href="@{/board/index}">BOARD_HOME</a>
+    <a th:href="@{/board/list}">글목록</a>
+</div>
+</body>
+</html>
